@@ -1,0 +1,60 @@
+name: Build and deploy Python app to ...
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Deploy API and Dashboard
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.OCR_SSH_PRIVATE_KEY  }}
+          host: ${{ secrets.OCR_SSH_HOST  }}
+          username: ${{ secrets.OCR_USER_NAME  }}
+          script: |
+            rm -rf /home/ubuntu/OCR_data_scientist_projet_07_livrables
+            git clone https://github.com/Sengsathit/OCR_data_scientist_projet_07_livrables.git
+            cd /home/ubuntu/OCR_data_scientist_projet_07_livrables
+            chmod +x /home/ubuntu/OCR_data_scientist_projet_07_livrables/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_api.sh
+
+            python3 -m venv .venv
+            source .venv/bin/activate
+            pip install -r requirements.txt
+
+            /home/ubuntu/OCR_data_scientist_projet_07_livrables/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_api.sh
+            /home/ubuntu/OCR_data_scientist_projet_07_livrables/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_dashboard.sh
+
+      - name: Set up Python version
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.10'
+
+      - name: Create and start virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run the API unit tests
+        run: pytest ./SILALAK_Sengsathit_3_dossier_code_072024/unit_tests/unit_tests_api.py
+
+      - name: Run the Dashboard unit test
+        run: pytest ./SILALAK_Sengsathit_3_dossier_code_072024/unit_tests/unit_tests_dashboard.py
+
+      - name: Upload artifact for deployment jobs
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-app
+          path: |
+            . 
+            !venv/
