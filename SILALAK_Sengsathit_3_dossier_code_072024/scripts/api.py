@@ -9,17 +9,19 @@ app = Flask(__name__)
 # Récupérez le répertoire actuel du fichier api.py
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
-@app.route("/predict", methods=['GET'])
-def predict():
+@app.route("/scoring", methods=['GET'])
+def scoring():
 
-    return jsonify({
-        'message': 'LLL !' 
-    })
+    # Effectuer la prédiction en fonction de l'ID du client
 
-@app.route("/test", methods=['GET'])
-def test():
+    # Calculer les valeurs SHAP pour le client donné
+
+    # Retourner le résultat du scoring ainsi que les valeurs SHAP
     return jsonify({
-        'message': 'This is the test route!' 
+        'probability': 0.5, 
+        'shap_values': [],
+        'feature_names': [],
+        'feature_values': []
     })
 
 if __name__ == "__main__":
