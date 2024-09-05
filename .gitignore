@@ -2,6 +2,7 @@ datasets/
 cours/
 mlartifacts/
 mlruns/
+*/data/df_train_domain.csv
 
 
 # Byte-compiled / optimized / DLL files

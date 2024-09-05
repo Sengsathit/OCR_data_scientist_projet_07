@@ -22,6 +22,10 @@ jobs:
           script: |
             rm -rf /home/ubuntu/OCR_data_scientist_projet_07_livrables
             git clone https://github.com/Sengsathit/OCR_data_scientist_projet_07_livrables.git
+
+            cd /home/ubuntu/OCR_data_scientist_projet_07_livrables/SILALAK_Sengsathit_3_dossier_code_072024/data
+            unzip df_train_domain.csv.zip
+
             cd /home/ubuntu/OCR_data_scientist_projet_07_livrables
             chmod +x /home/ubuntu/OCR_data_scientist_projet_07_livrables/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_api.sh
 
