@@ -20,21 +20,23 @@ jobs:
           host: ${{ secrets.OCR_SSH_HOST  }}
           username: ${{ secrets.OCR_USER_NAME  }}
           script: |
-            rm -rf /home/ubuntu/OCR_data_scientist_projet_07_livrables
-            git clone https://github.com/Sengsathit/OCR_data_scientist_projet_07_livrables.git
+            rm -rf /home/ubuntu/OCR_data_scientist_projet_07
+            git clone https://github.com/Sengsathit/OCR_data_scientist_projet_07.git
 
-            cd /home/ubuntu/OCR_data_scientist_projet_07_livrables/SILALAK_Sengsathit_3_dossier_code_072024/data
+            cd /home/ubuntu/OCR_data_scientist_projet_07/SILALAK_Sengsathit_3_dossier_code_072024/data
             unzip df_train_domain.csv.zip
+            rm df_train_domain.csv.zip
 
-            cd /home/ubuntu/OCR_data_scientist_projet_07_livrables
-            chmod +x /home/ubuntu/OCR_data_scientist_projet_07_livrables/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_api.sh
-
+            cd /home/ubuntu/OCR_data_scientist_projet_07
             python3 -m venv .venv
             source .venv/bin/activate
             pip install -r requirements.txt
 
-            /home/ubuntu/OCR_data_scientist_projet_07_livrables/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_api.sh
-            /home/ubuntu/OCR_data_scientist_projet_07_livrables/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_dashboard.sh
+            chmod +x /home/ubuntu/OCR_data_scientist_projet_07/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_api.sh
+            chmod +x /home/ubuntu/OCR_data_scientist_projet_07/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_dashboard.sh
+
+            /home/ubuntu/OCR_data_scientist_projet_07/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_api.sh
+            /home/ubuntu/OCR_data_scientist_projet_07/SILALAK_Sengsathit_3_dossier_code_072024/scripts/run_dashboard.sh
 
       - name: Set up Python version
         uses: actions/setup-python@v1
