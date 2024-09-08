@@ -73,17 +73,16 @@ if st.button("Vérifier le risque"):
 
                 st.text("")
 
-                # Affichage des contributions positives
-                st.write("##### Contributions positives")
-                for feature in sorted_positives:
-                    st.write(f"{feature['feature_name']} : {feature['shap_value']:.6f}")
-
-                st.text("")
-
-                # Affichage des contributions négatives
-                st.write("##### Contributions négatives")
-                for feature in sorted_negatives:
-                    st.write(f"{feature['feature_name']} : {feature['shap_value']:.6f}")
+                # Affichage des contributions positives et négatives
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.write("##### Contributions positives")
+                    for feature in sorted_positives:
+                        st.write(f"{feature['feature_name']} : {feature['shap_value']:.6f}")
+                with col2:
+                    st.write("##### Contributions négatives")
+                    for feature in sorted_negatives:
+                        st.write(f"{feature['feature_name']} : {feature['shap_value']:.6f}")
 
             else:
                 # Afficher l'erreur retournée par l'API
