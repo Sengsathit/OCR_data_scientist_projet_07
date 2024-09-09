@@ -32,6 +32,9 @@ df = pd.read_csv(csv_path)
 # Initialisation de l'explainer SHAP
 explainer = shap.TreeExplainer(model)
 
+# Seuil de décision optimal
+threshold = 0.08
+
 @app.route("/scoring", methods=['POST'])
 def scoring():
 
@@ -66,7 +69,7 @@ def scoring():
     # Retourner le résultat du scoring avec les SHAP positifs et négatifs
     return jsonify({
         'sk_id_curr': sk_id_curr,
-        'threshold': 0.35,
+        'threshold': threshold,
         'probability': probability,
         'feature_importances_positive': feature_importances_positive,
         'feature_importances_negative': feature_importances_negative
