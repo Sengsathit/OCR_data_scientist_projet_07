@@ -1,4 +1,4 @@
-name: Build and deploy Python app to ...
+name: Check unit tests then deploy API and Dashboard
 
 on:
   push:
@@ -31,6 +31,7 @@ jobs:
 
       - name: Run the Dashboard unit test
         run: pytest ./SILALAK_Sengsathit_3_dossier_code_072024/unit_tests/unit_tests_dashboard.py
+        
       - name: Deploy API and Dashboard
         uses: appleboy/ssh-action@master
         with:

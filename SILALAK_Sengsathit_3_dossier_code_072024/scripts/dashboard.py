@@ -1,8 +1,5 @@
-import os
-
-import numpy as np
 import pandas as pd
-import plotly.graph_objects as go
+import plotly.express as px
 import requests
 import streamlit as st
 
@@ -41,8 +38,8 @@ if st.button("Vérifier le risque"):
                 # Affichage des informations récupérées
                 st.markdown("***")
                 st.subheader(f"Résultat de l'évaluation pour le client {data.get('sk_id_curr')}")
-                st.write(f"Seuil de décision : {data.get('threshold') * 100:.2f} %")
-                st.write(f"Probabilité de défaut de remboursement du client : {data.get('probability') * 100:.2f} %")
+                st.write(f"Seuil de décision : {data.get('threshold') * 100:.2f}")
+                st.write(f"Score du client : {data.get('probability') * 100:.2f}")
 
                 if is_credit_default:
                     st.markdown(
@@ -62,27 +59,39 @@ if st.button("Vérifier le risque"):
                     )
 
                 # Trier les valeurs négatives du plus petit au plus grand
-                sorted_negatives = sorted(data["feature_importances_negative"], key=lambda x: x["shap_value"])[:10]
+                sorted_negatives = sorted(data['feature_importances_negative'], key=lambda x: x['shap_value'])[:10]
 
                 # Trier les valeurs positives du plus grand au plus petit
-                sorted_positives = sorted(data["feature_importances_positive"], key=lambda x: x["shap_value"], reverse=True)[:10]
+                sorted_positives = sorted(data['feature_importances_positive'], key=lambda x: x['shap_value'], reverse=True)[:10]
 
                 # Affichage de la contribution des features
                 st.markdown("<hr>", unsafe_allow_html=True)
-                st.subheader(f"Contribution des features")
+                st.subheader('Contribution des features')
 
-                st.text("")
+                st.text('')
 
-                # Affichage des contributions positives et négatives
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.write("##### Contributions positives")
-                    for feature in sorted_positives:
-                        st.write(f"{feature['feature_name']} : {feature['shap_value']:.6f}")
-                with col2:
-                    st.write("##### Contributions négatives")
-                    for feature in sorted_negatives:
-                        st.write(f"{feature['feature_name']} : {feature['shap_value']:.6f}")
+                # Convertir les données en DataFrames
+                df_sorted_negatives = pd.DataFrame(sorted_negatives).sort_values(by='shap_value', ascending=False)
+                df_sorted_positives = pd.DataFrame(sorted_positives).sort_values(by='shap_value', ascending=True)
+
+                # Fonction pour créer un graphique de barres horizontales avec Plotly
+                def plot_feature_importance(df, title, color):
+                    fig = px.bar(df, 
+                                y='feature_name', 
+                                x='shap_value', 
+                                orientation='h', 
+                                title=title, 
+                                labels={'shap_value': 'SHAP Value', 'feature_name': ''},
+                                color_discrete_sequence=[color])
+                    return fig
+
+                # Créer les graphiques pour les importances positives et négatives
+                fig_neg = plot_feature_importance(df_sorted_negatives, 'Contributions négatives', 'gray')
+                fig_pos = plot_feature_importance(df_sorted_positives, 'Contributions positives', 'yellow')
+
+                # Afficher les graphiques avec Streamlit
+                st.plotly_chart(fig_neg)
+                st.plotly_chart(fig_pos)
 
             else:
                 # Afficher l'erreur retournée par l'API
