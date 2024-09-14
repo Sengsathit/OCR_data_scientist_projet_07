@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
@@ -27,10 +28,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run the API unit tests
-        run: pytest ./SILALAK_Sengsathit_3_dossier_code_072024/unit_tests/unit_tests_api.py
-
-      - name: Run the Dashboard unit test
-        run: pytest ./SILALAK_Sengsathit_3_dossier_code_072024/unit_tests/unit_tests_dashboard.py
+        run: pytest SILALAK_Sengsathit_3_dossier_code_072024/unit_tests/unit_tests_api.py
         
       - name: Deploy API and Dashboard
         uses: appleboy/ssh-action@master

@@ -93,9 +93,15 @@ if st.button("Vérifier le risque"):
                 st.plotly_chart(fig_neg)
                 st.plotly_chart(fig_pos)
 
-            else:
+            elif response.status_code == 400:
+                # Récupérer les données JSON
+                data = response.json()
+
                 # Afficher l'erreur retournée par l'API
-                st.error(f"L'API a retourné une erreur : {response}")
+                st.error(f"Erreur : {data['error']}")
+            else :
+                # Afficher l'erreur retournée par l'API
+                st.error(f"Erreur : {response}")
 
         except Exception as e:
             # Traiter les exceptions
