@@ -1,5 +1,4 @@
 import os
-import joblib
 import pandas as pd
 import shap
 import pickle
@@ -33,7 +32,7 @@ df = pd.read_csv(csv_path)
 explainer = shap.TreeExplainer(model)
 
 # Seuil de décision optimal
-threshold = 0.08
+threshold = 0.54
 
 @app.route("/scoring", methods=['POST'])
 def scoring():

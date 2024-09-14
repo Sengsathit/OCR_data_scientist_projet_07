@@ -87,7 +87,7 @@ if st.button("Vérifier le risque"):
 
                 # Créer les graphiques pour les importances positives et négatives
                 fig_neg = plot_feature_importance(df_sorted_negatives, 'Contributions négatives', 'gray')
-                fig_pos = plot_feature_importance(df_sorted_positives, 'Contributions positives', 'yellow')
+                fig_pos = plot_feature_importance(df_sorted_positives, 'Contributions positives', 'orange')
 
                 # Afficher les graphiques avec Streamlit
                 st.plotly_chart(fig_neg)
