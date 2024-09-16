@@ -52,14 +52,13 @@ OCR_data_scientist_projet_07/
 │    ├── scripts/                                                         # Dossier des scripts de déploiement de l'API et du dashboard
 │    │    ├── api.py                                                      # Script de l'API (Flask)
 │    │    ├── dashboard.py                                                # Script du dashboard (Streamlit)
-│    │    ├── run_api.sh                                                  # Script bash pour exécuter un instance de l'API sur le serveur
-│    │    └── run_dashboard.py                                            # Script bash pour exécuter un instance du dashboard sur le serveur
+│    │    ├── run_api.sh                                                  # Script bash pour exécuter une instance de l'API sur le serveur
+│    │    └── run_dashboard.py                                            # Script bash pour exécuter une instance du dashboard sur le serveur
 │    ├── tools/                                                           # Dossier contenant divers outils de manipulation de données
 │    │    ├── imputer.pkl                                                 # Imputer pour que les données de production soient ISO aux données d'entraînement
 │    │    └── scaler.pkl                                                  # Scaler pour que les données de production soient ISO aux données d'entraînement
 │    └── unit_tests/                                                      # Dossier des tests unitaires
-│         ├── unit_tests_api.py                                           # Tests unitaires de l'API
-│         └── unit_tests_dashboard.py                                     # Tests unitaires du dashboard
+│         └── unit_tests_api.py                                           # Tests unitaires de l'API
 ├── SILALAK_Sengsathit_4_Tableau_HTML_data_drift_evidently_072024.html    # Fichier de présentation des résultats de l'analyse du Data Drift
 ├── SILALAK_Sengsathit_5_presentation_072024.pdf                          # Slides de présentation de ce projet
 ├── requirements.txt                                                      # Fichier des dépendances
